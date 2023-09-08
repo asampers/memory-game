@@ -6,6 +6,20 @@ export default function Deck() {
   const [deck, setDeck] = useState(null)
   const [tableCards, setTableCards] = useState(null);
   
+  const shuffle = (original) => { 
+    let array = [...original]
+    for (let i = array.length - 1; i > 0; i--) { 
+      const j = Math.floor(Math.random() * (i + 1)); 
+      [array[i], array[j]] = [array[j], array[i]]; 
+    } 
+    return array; 
+  }; 
+
+  function handleClick() {
+    let shuffledCards = shuffle(tableCards)
+    setTableCards(shuffledCards)
+  }
+
   useEffect(() => {
     // eslint-disable-next-line no-unused-vars
     let ignore = false;
@@ -48,7 +62,7 @@ export default function Deck() {
   return (
     <div className="table">
       {tableCards.map((card) => (
-        <ShowCard key={card.code} image={card.image} />
+        <ShowCard key={card.code} image={card.image} onClick={handleClick}/>
       ))}
     </div>
   )
