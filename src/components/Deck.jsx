@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
+import ShowCard from "./ShowCard";
+import "../styles/deck.css"
 
 export default function Deck() {
   const [deck, setDeck] = useState(null)
   const [tableCards, setTableCards] = useState(null);
   
   useEffect(() => {
+    // eslint-disable-next-line no-unused-vars
     let ignore = false;
 
     async function getNewDeck() {
@@ -22,8 +25,7 @@ export default function Deck() {
   }, []);
 
   useEffect(() => {
-    //will need an if check here
-
+    // eslint-disable-next-line no-unused-vars
     let ignore = false;
 
     async function drawCards() {
@@ -42,4 +44,12 @@ export default function Deck() {
   console.log(deck)
   console.log(tableCards)
 
+  if (tableCards)
+  return (
+    <div className="table">
+      {tableCards.map((card) => (
+        <ShowCard key={card.code} image={card.image} />
+      ))}
+    </div>
+  )
 }
