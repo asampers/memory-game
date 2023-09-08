@@ -30,7 +30,13 @@ export default function Deck() {
     return (guessed.length + 1) % 8 === 0
   }
 
-  function endGame() {
+  const gameOver = (guess) => {
+    if (guessed && guessed.includes(guess)) return "lost";
+    if (guessed && guessed.length === 51 && !guessed.includes(guess)) return "won";
+    return null;
+  }
+
+  function resetGame() {
     setReset(!reset)
     setGuessed(null)
     setTableCards(null)
@@ -39,10 +45,17 @@ export default function Deck() {
     alert("Oops! You already clicked that one. You lose!")
   }
 
+  function endGame(status, guess) {
+    if (status == "lost") return resetGame();
+    addGuess(guess)
+    alert("Congrats! You won!") 
+  }
+
   function handleClick(e) {
     let guess = e.target.id
     let shuffledCards = shuffle(tableCards)
-    guessed && guessed.includes(guess) ? endGame() : addGuess(guess)
+    let gameStatus = gameOver(guess)
+    gameStatus ? endGame(gameStatus, guess) : addGuess(guess)
     levelUp() ? setLevel(level + 1) : setTableCards(shuffledCards)
   }
 
