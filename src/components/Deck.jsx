@@ -7,6 +7,7 @@ export default function Deck() {
   const [deck, setDeck] = useState(null)
   const [tableCards, setTableCards] = useState(null);
   const [guessed, setGuessed] = useState(null)
+  const [best, setBest] = useState(0)
   const [reset, setReset] = useState(false)
 
   const shuffle = (original) => { 
@@ -28,7 +29,8 @@ export default function Deck() {
     setReset(!reset)
     setGuessed(null)
     setTableCards(null)
-    alert("Stop the game!")
+    if (guessed.length > best) setBest(guessed.length)
+    alert("Oops! You already clicked that one. You lose!")
   }
 
   function handleClick(e) {
@@ -80,7 +82,7 @@ export default function Deck() {
   if (tableCards)
   return (
     <>
-      <Scoreboard current={guessed ? guessed.length : 0} best={0}/>
+      <Scoreboard current={guessed ? guessed.length : 0} best={best}/>
       <div className="table">
         {tableCards.map((card) => (
           <ShowCard key={card.code} id={card.code} image={card.image} onClick={handleClick}/>
