@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import ShowCard from "./ShowCard";
+import Scoreboard from "./Scoreboard";
 import "../styles/deck.css"
 
 export default function Deck() {
@@ -78,10 +79,13 @@ export default function Deck() {
 
   if (tableCards)
   return (
-    <div className="table">
-      {tableCards.map((card) => (
-        <ShowCard key={card.code} id={card.code} image={card.image} onClick={handleClick}/>
-      ))}
-    </div>
+    <>
+      <Scoreboard current={guessed ? guessed.length : 0} best={0}/>
+      <div className="table">
+        {tableCards.map((card) => (
+          <ShowCard key={card.code} id={card.code} image={card.image} onClick={handleClick}/>
+        ))}
+      </div>
+    </>
   )
 }
