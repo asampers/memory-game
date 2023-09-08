@@ -82,7 +82,10 @@ export default function Deck() {
   if (tableCards)
   return (
     <>
-      <Scoreboard current={guessed ? guessed.length : 0} best={best}/>
+      <div className="header">
+        <Scoreboard current={guessed ? guessed.length : 0} best={best}/>
+        <h1>Counting Cards</h1>
+      </div>
       <div className="table">
         {tableCards.map((card) => (
           <ShowCard key={card.code} id={card.code} image={card.image} onClick={handleClick}/>
