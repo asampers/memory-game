@@ -9,6 +9,7 @@ export default function Deck() {
   const [guessed, setGuessed] = useState(null)
   const [best, setBest] = useState(0)
   const [reset, setReset] = useState(false)
+  const [level, setLevel] = useState(1)
 
   const shuffle = (original) => { 
     let array = [...original]
@@ -25,10 +26,15 @@ export default function Deck() {
     setGuessed(copy)
   }
 
+  const levelUp = () => {
+    return (guessed.length + 1) % 8 === 0
+  }
+
   function endGame() {
     setReset(!reset)
     setGuessed(null)
     setTableCards(null)
+    setLevel(1)
     if (guessed.length > best) setBest(guessed.length)
     alert("Oops! You already clicked that one. You lose!")
   }
@@ -37,7 +43,7 @@ export default function Deck() {
     let guess = e.target.id
     let shuffledCards = shuffle(tableCards)
     guessed && guessed.includes(guess) ? endGame() : addGuess(guess)
-    setTableCards(shuffledCards)
+    levelUp() ? setLevel(level + 1) : setTableCards(shuffledCards)
   }
 
   useEffect(() => {
@@ -73,17 +79,19 @@ export default function Deck() {
     return () => {
       ignore = true;
     }
-  }, [deck]);
+  }, [deck, level]);
   
   console.log(deck)
   //console.log(tableCards)
   console.log(guessed)
+  console.log(level)
 
   if (tableCards)
   return (
     <>
       <div className="header">
         <Scoreboard current={guessed ? guessed.length : 0} best={best}/>
+        <p className="level"><b>Level:</b> {level}</p>
         <h1>Counting Cards</h1>
       </div>
       <div className="table">
