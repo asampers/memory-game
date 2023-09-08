@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import ShowCard from "./ShowCard";
 import Scoreboard from "./Scoreboard";
+import Title from "./Title";
 import "../styles/deck.css"
 
 export default function Deck() {
@@ -27,31 +28,31 @@ export default function Deck() {
   }
 
   const levelUp = () => {
-    return (guessed.length + 1) % 8 === 0
+    return guessed && (guessed.length + 1) % 8 === 0
   }
 
   const gameOver = (guess) => {
     if (guessed && guessed.includes(guess)) return "lost";
-    if (guessed && guessed.length === 51 && !guessed.includes(guess)) return "won";
+    if (guessed && guessed.length === 5 && !guessed.includes(guess)) return "won";
     return null;
   }
 
   function resetGame() {
-    setReset(!reset)
-    setGuessed(null)
-    setTableCards(null)
-    setLevel(1)
-    if (guessed.length > best) setBest(guessed.length)
-    alert("Oops! You already clicked that one. You lose!")
+    setReset(!reset);
+    setGuessed(null);
+    setTableCards(null);
+    setLevel(1);
+    if (guessed.length > best) setBest(guessed.length);
   }
 
   function endGame(status, guess) {
-    if (status == "lost") return resetGame();
-    addGuess(guess)
-    alert("Congrats! You won!") 
+    if (status == "won") addGuess(guess);
+    resetGame()
+    alert(status == "won" ? "Congrats! You won!" : "Oops! You already clicked that one. You lose!")
   }
 
   function handleClick(e) {
+    e.preventDefault()
     let guess = e.target.id
     let shuffledCards = shuffle(tableCards)
     let gameStatus = gameOver(guess)
@@ -105,7 +106,7 @@ export default function Deck() {
       <div className="header">
         <Scoreboard current={guessed ? guessed.length : 0} best={best}/>
         <p className="level"><b>Level:</b> {level}</p>
-        <h1>Counting Cards</h1>
+        <Title />
       </div>
       <div className="table">
         {tableCards.map((card) => (

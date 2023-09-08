@@ -1,0 +1,18 @@
+h1 {
+  color: #fff;
+  margin-top: .5em;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+i {
+  position: absolute;
+  z-index: -1;
+  color: #fff;
+  white-space: nowrap;
+}
