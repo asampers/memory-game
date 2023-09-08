@@ -5,6 +5,6 @@ export default function ShowCard({image}) {
   const style = {backgroundImage: `url(${image})`};
 
   return (
-    <div style={style} className="card"></div>
+    <button style={style} className="card"></button>
   )
 }
