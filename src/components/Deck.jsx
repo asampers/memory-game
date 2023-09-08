@@ -5,7 +5,9 @@ import "../styles/deck.css"
 export default function Deck() {
   const [deck, setDeck] = useState(null)
   const [tableCards, setTableCards] = useState(null);
-  
+  const [guessed, setGuessed] = useState(null)
+  const [reset, setReset] = useState(false)
+
   const shuffle = (original) => { 
     let array = [...original]
     for (let i = array.length - 1; i > 0; i--) { 
@@ -15,8 +17,23 @@ export default function Deck() {
     return array; 
   }; 
 
-  function handleClick() {
+  const addGuess = (guess) => {
+    let copy = !guessed ? [] : [...guessed]
+    copy.push(guess)
+    setGuessed(copy)
+  }
+
+  function endGame() {
+    setReset(!reset)
+    setGuessed(null)
+    setTableCards(null)
+    alert("Stop the game!")
+  }
+
+  function handleClick(e) {
+    let guess = e.target.id
     let shuffledCards = shuffle(tableCards)
+    guessed && guessed.includes(guess) ? endGame() : addGuess(guess)
     setTableCards(shuffledCards)
   }
 
@@ -36,7 +53,7 @@ export default function Deck() {
       ignore = true;
       console.log("disconnected")
     };
-  }, []);
+  }, [reset]);
 
   useEffect(() => {
     // eslint-disable-next-line no-unused-vars
@@ -56,13 +73,14 @@ export default function Deck() {
   }, [deck]);
   
   console.log(deck)
-  console.log(tableCards)
+  //console.log(tableCards)
+  console.log(guessed)
 
   if (tableCards)
   return (
     <div className="table">
       {tableCards.map((card) => (
-        <ShowCard key={card.code} image={card.image} onClick={handleClick}/>
+        <ShowCard key={card.code} id={card.code} image={card.image} onClick={handleClick}/>
       ))}
     </div>
   )

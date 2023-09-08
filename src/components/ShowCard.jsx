@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import "../styles/card.css"
 
-export default function ShowCard({image, onClick}) {
+export default function ShowCard({image, onClick, id}) {
   const style = {backgroundImage: `url(${image})`};
 
   return (
-    <button onClick={onClick} style={style} className="card"></button>
+    <button id={id} onClick={onClick} style={style} className="card"></button>
   )
 }
