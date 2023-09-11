@@ -1,9 +1,9 @@
 import './App.css';
-import Deck from "./components/Deck";
+import Game from "./components/Game";
 
 function App() {
   return (
-    <Deck />
+    <Game />
   )
 }
 

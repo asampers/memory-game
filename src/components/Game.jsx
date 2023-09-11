@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import ShowCard from "./ShowCard";
+import Table from "./Table";
 import Scoreboard from "./Scoreboard";
 import Title from "./Title";
-import "../styles/deck.css"
+import "../styles/game.css"
 
-export default function Deck() {
+export default function Game() {
   const [deck, setDeck] = useState(null)
   const [tableCards, setTableCards] = useState(null);
   const [guessed, setGuessed] = useState(null)
@@ -94,11 +94,6 @@ export default function Deck() {
       ignore = true;
     }
   }, [deck, level]);
-  
-  console.log(deck)
-  //console.log(tableCards)
-  console.log(guessed)
-  console.log(level)
 
   if (tableCards)
   return (
@@ -108,11 +103,7 @@ export default function Deck() {
         <p className="level"><b>Level:</b> {level}</p>
         <Title />
       </div>
-      <div className="table">
-        {tableCards.map((card) => (
-          <ShowCard key={card.code} id={card.code} image={card.image} onClick={handleClick}/>
-        ))}
-      </div>
+      <Table cards={tableCards} onClick={handleClick}/>
     </>
   )
 }
