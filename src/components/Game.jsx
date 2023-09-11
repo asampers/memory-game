@@ -33,7 +33,7 @@ export default function Game() {
 
   const gameOver = (guess) => {
     if (guessed && guessed.includes(guess)) return "lost";
-    if (guessed && guessed.length === 5 && !guessed.includes(guess)) return "won";
+    if (guessed && guessed.length === 51) return "won";
     return null;
   }
 
@@ -42,11 +42,18 @@ export default function Game() {
     setGuessed(null);
     setTableCards(null);
     setLevel(1);
-    if (guessed.length > best) setBest(guessed.length);
   }
 
-  function endGame(status, guess) {
-    if (status == "won") addGuess(guess);
+  function handleBestScore(status) {
+    if (status == "won") {
+      setBest(52)
+    } else {
+      if (guessed.length > best) setBest(guessed.length);
+    }
+  }
+
+  function endGame(status) {
+    handleBestScore(status)
     resetGame()
     alert(status == "won" ? "Congrats! You won!" : "Oops! You already clicked that one. You lose!")
   }
@@ -56,7 +63,7 @@ export default function Game() {
     let guess = e.target.id
     let shuffledCards = shuffle(tableCards)
     let gameStatus = gameOver(guess)
-    gameStatus ? endGame(gameStatus, guess) : addGuess(guess)
+    gameStatus ? endGame(gameStatus) : addGuess(guess)
     levelUp() ? setLevel(level + 1) : setTableCards(shuffledCards)
   }
 
