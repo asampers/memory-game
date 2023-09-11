@@ -81,7 +81,6 @@ export default function Game() {
 
     return () => {
       ignore = true;
-      console.log("disconnected")
     };
   }, [reset]);
 
@@ -107,7 +106,6 @@ export default function Game() {
     <>
       <div className="header">
         <Scoreboard current={guessed ? guessed.length : 0} best={best}/>
-        <p className="level"><b>Level:</b> {level}</p>
         <Title />
       </div>
       <Table cards={tableCards} onClick={handleClick}/>
