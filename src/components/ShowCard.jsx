@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import "../styles/card.css"
 
 export default function ShowCard({image, onClick, id}) {

@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import ShowCard from "./ShowCard";
 
 export default function Table({cards, onClick}) {
