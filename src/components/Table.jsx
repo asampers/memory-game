@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import ShowCard from "./ShowCard";
 
 export default function Table({cards, onClick}) {
@@ -8,4 +9,9 @@ export default function Table({cards, onClick}) {
       ))}
     </div>
   )
+}
+
+Table.propTypes = {
+  cards: PropTypes.array,
+  onClick: PropTypes.func,
 }

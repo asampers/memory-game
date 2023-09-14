@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import "../styles/board.css"
 
 export default function Scoreboard({current, best}) {
@@ -7,4 +8,9 @@ export default function Scoreboard({current, best}) {
       <span><b>Best:</b> {best}</span>
     </div>
   )
+}
+
+Scoreboard.propTypes = {
+  current: PropTypes.number,
+  best: PropTypes.number,
 }
